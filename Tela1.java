@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.Graphics;
 import javax.swing.JFrame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -128,44 +126,6 @@ public class Tela1 extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {}
         });
-    }
-
-
-    public static void main(String [] args){
-        JFrame janela = new JFrame();
-
-        JButton bt_start = new JButton();
-        bt_start.setText("Iniciar QUIZ.");
-        bt_start.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                janela.remove(bt_start);
-
-                Thread threadJ = new Thread() {
-                    public void run() {
-                        long start = System.currentTimeMillis();
-                        Tela1 prox = new Tela1(janela, 0, start);
-                        janela.add(prox);
-                    }
-                };   
-                try{
-                    threadJ.start();
-                    threadJ.join(500);
-                }catch (InterruptedException e1){
-                    System.out.println("Main thread Interrupted");
-                }
-
-                janela.repaint();
-                janela.setVisible(true);
-            }
-        });
-    
-        janela.add(bt_start);
-        janela.setSize(500,500);
-        janela.setLocationRelativeTo(null);
-        janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        janela.setVisible(true);
-
     }
 }
 
