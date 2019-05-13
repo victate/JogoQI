@@ -1,6 +1,5 @@
 package figuras;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.awt.geom.*;
@@ -9,7 +8,10 @@ import java.awt.geom.Line2D;
 public class HexagonoPizza_3d{
     Path2D path = new Path2D.Double();
     int f1v = 7; 
-    int f2v = 7; 
+    int f2v = f1v;
+    Double hipotenusa = 5.0;
+    Double cateto_oposto = Math.asin(Math.PI/6)*hipotenusa; //PI/6==30°
+    Double cateto_adjacente = Math.acos(Math.PI/6)*hipotenusa; //PI/6==30°
 
     Double[] p11 = {0.0, 0.0};
     Double[] p12 = {30.0, 20.0};                         
@@ -19,13 +21,13 @@ public class HexagonoPizza_3d{
     Double[] p16 = {-30.0, 55.0};
     Double[] p17 = {-30.0,  20.0};
 
-    Double[] p21 = {-5.0, -5.0};
-    Double[] p22 = {25.0, 15.0};                         
-    Double[] p23 = {-5.0, 32.5};
-    Double[] p24 = {25.0, 50.0};
-    Double[] p25 = {-5.0, 70.0};
-    Double[] p26 = {-35.0, 50.0};
-    Double[] p27 = {-35.0, 15.0};
+    Double[] p21 = {p11[0]+cateto_adjacente, p11[1]+cateto_oposto};
+    Double[] p22 = {p12[0]+cateto_adjacente, p12[1]+cateto_oposto};                         
+    Double[] p23 = {p13[0]+cateto_adjacente, p13[1]+cateto_oposto};
+    Double[] p24 = {p14[0]+cateto_adjacente, p14[1]+cateto_oposto};
+    Double[] p25 = {p15[0]+cateto_adjacente, p15[1]+cateto_oposto};
+    Double[] p26 = {p16[0]+cateto_adjacente, p16[1]+cateto_oposto};
+    Double[] p27 = {p17[0]+cateto_adjacente, p17[1]+cateto_oposto};    
 
     Double[][] face1= {p11, p12, p13, p14, p15, p16, p17};
     Double[][] face2= {p21, p22, p23, p24, p25, p26, p27};
@@ -37,7 +39,10 @@ public class HexagonoPizza_3d{
     public HexagonoPizza_3d(){}
     
     public ArrayList<Shape> transladar(Double[] transl1){
-        sps =new ArrayList<Shape>();
+        sps = new ArrayList<Shape>();
+
+        System.out.print(cateto_oposto+"\n");
+        System.out.print(cateto_adjacente);
 
         //face1
         for (int i = 0; i < this.f1v; i++) {
