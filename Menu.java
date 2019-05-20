@@ -5,8 +5,12 @@ import java.awt.Graphics;
 import javax.swing.*;
 import java.util.*;
 import java.awt.Graphics2D;
+
+import figuras.HexPizza_3d_faces;
 import figuras.HexagonoPizza_3d;
 import java.awt.event.*;
+import java.awt.geom.GeneralPath;
+
 import javax.swing.JFrame;
 
 public class Menu extends JPanel {
@@ -21,15 +25,15 @@ public class Menu extends JPanel {
         super.paintComponents(g);
         Graphics2D g2D = (Graphics2D) g;
         ArrayList<Shape> s =new ArrayList<Shape>();
-        Double[] trsld = {200.0, 100.0};
+        Double[] trsld = {300.0, 100.0};
         
         Thread thread = new Thread() {
             public void run() {
-                HexagonoPizza_3d img = new HexagonoPizza_3d();
-                img.Escala(3.0);
-                img.espelhar();
-                img.girar(Math.PI*2/3);
-                s.addAll(img.transladar(trsld));
+                HexPizza_3d_faces img = new HexPizza_3d_faces();
+                img.escala(3.0);
+                img.transladar(trsld);
+                //g2D.draw(img.getFace(0));
+                s.addAll(img.getShape());
             }
         };
         try{
