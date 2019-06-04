@@ -1,15 +1,15 @@
 import javax.swing.JPanel;
 import java.awt.Shape;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.*;
 import java.util.*;
 import java.awt.Graphics2D;
 
-import figuras.HexPizza_3d_faces;
-import figuras.HexagonoPizza_3d;
+import figuras.PacMan;
+
 import java.awt.event.*;
-import java.awt.geom.GeneralPath;
 
 import javax.swing.JFrame;
 
@@ -25,15 +25,28 @@ public class Menu extends JPanel {
         super.paintComponents(g);
         Graphics2D g2D = (Graphics2D) g;
         ArrayList<Shape> s =new ArrayList<Shape>();
-        Double[] trsld = {300.0, 100.0};
+        Double[] trsld = {250.0, 150.0, 100.0};
         
         Thread thread = new Thread() {
             public void run() {
-                HexPizza_3d_faces img = new HexPizza_3d_faces();
-                img.escala(3.0);
-                img.transladar(trsld);
-                //g2D.draw(img.getFace(0));
-                s.addAll(img.getShape());
+                PacMan img = new PacMan();
+                img.escala(2.0, 2.0, 2.0);
+                img.projecao_isometrica();
+                img.transladar(trsld[0], trsld[1], trsld[2]);
+
+                for(int i=1; i<img.getNumFaces(); i++){
+                    g2D.setPaint(Color.WHITE);
+                    g2D.fill(img.getPathFace(i));
+                    g2D.setPaint(Color.BLACK);
+                    g2D.draw(img.getPathFace(i));
+                }
+
+                g2D.setPaint(Color.WHITE);
+                g2D.fill(img.getPathFace(0));
+                g2D.setPaint(Color.BLACK);
+                g2D.draw(img.getPathFace(0));
+
+                //g2D.draw(img.getPath());
             }
         };
         try{
